@@ -82,13 +82,13 @@ function Reveal({
 }) {
   const r = useReducedMotion()
   const mobile = useIsMobile()
-  const travel = mobile ? 0.4 : 1
+  const travel = mobile ? 0.7 : 1
   const from = {
     opacity: 0,
     x: (direction === 'left' ? -64 : direction === 'right' ? 64 : 0) * travel,
     y: (direction === 'up' ? 52 : 0) * travel,
     scale: scale ? (mobile ? 0.97 : 0.94) : 1,
-    rotate: mobile ? 0 : rotate,
+    rotate: mobile ? rotate / 2 : rotate,
     filter: blur && !mobile ? 'blur(8px)' : 'blur(0px)',
   }
   return (
@@ -96,8 +96,8 @@ function Reveal({
       className={className}
       initial={r ? false : from}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: mobile ? 0.6 : 0.8, delay: mobile ? Math.min(delay, 0.2) : delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.12, margin: '0px 0px -8% 0px' }}
+      transition={{ duration: mobile ? 0.75 : 0.9, delay: mobile ? Math.min(delay, 0.4) : delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -132,8 +132,9 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 export default function App() {
   const reduced = useReducedMotion()
   const isMobile = useIsMobile()
-  // Disable heavy parallax on phones (and for reduced-motion users)
-  const r = reduced || isMobile
+  // Parallax only off for reduced-motion users; gentler on phones
+  const r = !!reduced
+  const k = isMobile ? 0.5 : 1
 
   // Modal states
   const [isBookingOpen, setIsBookingOpen] = useState(false)
@@ -154,10 +155,10 @@ export default function App() {
   const heroRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
   const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const heroY = useTransform(heroProgress, [0, 1], r ? ['0%', '0%'] : ['0%', '18%'])
-  const heroScale = useTransform(heroProgress, [0, 1], r ? [1, 1] : [1.04, 1.12])
+  const heroY = useTransform(heroProgress, [0, 1], r ? ['0%', '0%'] : ['0%', `${18 * k}%`])
+  const heroScale = useTransform(heroProgress, [0, 1], r ? [1, 1] : [1.04, 1 + 0.12 * k])
   const { scrollYProgress: aboutProgress } = useScroll({ target: aboutRef, offset: ['start end', 'end start'] })
-  const aboutY = useTransform(aboutProgress, [0, 1], r ? ['0%', '0%'] : ['-6%', '6%'])
+  const aboutY = useTransform(aboutProgress, [0, 1], r ? ['0%', '0%'] : [`-${6 * k}%`, `${6 * k}%`])
   const aboutScale = useTransform(aboutProgress, [0, 0.5, 1], r ? [1, 1, 1] : [1.12, 1.04, 1.1])
   const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
@@ -177,7 +178,7 @@ export default function App() {
   // Initialize Lenis smooth scroll
   useEffect(() => {
     if (reduced) return
-    const lenis = new Lenis({ lerp: 0.1, duration: 1.2 })
+    const lenis = new Lenis({ lerp: 0.1, duration: 1.2, syncTouch: true, syncTouchLerp: 0.12, touchMultiplier: 1.2 })
     let reqId = 0
     const raf = (time: number) => {
       lenis.raf(time)
