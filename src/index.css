@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal-brand: #0d5249;
+  --color-teal-deep: #083832;
+  --color-teal-light: #14b8a6;
+  --color-sage-bg: #f4f8f6;
+  --color-sage-border: #e2ede8;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #1e293b;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Lenis smooth scrolling adjustments */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Floating animation for tooth in Why section */
+@keyframes floatTooth {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+.tooth-float {
+  animation: floatTooth 5s ease-in-out infinite;
+}
+
+.tooth-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes quickFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.quick-float { animation: quickFloat 5s ease-in-out infinite; }
+.quick-float:hover { animation-play-state: paused; }
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .quick-float { animation: none !important; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

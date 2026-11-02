@@ -1,0 +1,13 @@
+﻿node_modules/
+dist/
+.vercel/
+*.log
+vite-dev.log
+dev.log
+.env*
+*.bak*
+*.bak-anim
+src-backup-pre-mobile.zip
+tsconfig.tsbuildinfo
+# junk test images (live assets are .webp/.png)
+*.jpg
