@@ -600,9 +600,9 @@ export default function App() {
         {/* ========================================================= */}
         {/* 2. HERO SECTION                                           */}
         {/* ========================================================= */}
-        <section ref={heroRef} id="home" className="relative overflow-hidden bg-white md:bg-[#eef4f6] md:min-h-[520px] lg:min-h-[580px] xl:min-h-[620px]">
+        <section ref={heroRef} id="home" className="relative overflow-hidden bg-[#eef4f6] min-h-[560px] min-[390px]:min-h-[600px] md:min-h-[520px] lg:min-h-[580px] xl:min-h-[620px]">
           {/* Hero background image - Ultra-clarity master photo, no linear gradient */}
-          <div className="relative h-60 min-[390px]:h-72 sm:h-80 overflow-hidden md:absolute md:inset-0 md:h-auto">
+          <div className="absolute inset-0 overflow-hidden">
             <motion.div className="absolute inset-0 will-change-transform" style={{ y: heroY, scale: heroScale }}>
               <picture>
                 <source srcSet={IMAGES.hero} type="image/webp" />
@@ -612,46 +612,50 @@ export default function App() {
                   fetchPriority="high"
                   decoding="async"
                   style={{ imageRendering: '-webkit-optimize-contrast' }}
-                  className="h-full w-full object-cover object-[78%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-[60%_center] xl:object-center select-none"
+                  className="h-full w-full object-cover object-[72%_center] sm:object-[72%_center] md:object-[68%_center] lg:object-[60%_center] xl:object-center select-none"
                 />
               </picture>
             </motion.div>
             {/* Very soft left wash for text legibility only */}
             {/* Mobile: soft top-to-bottom wash so copy stays readable while the face (right) shows */}
+            {/* Mobile: soft white waves (top + left glow + bottom wave) */}
+            <div className="pointer-events-none absolute inset-0 md:hidden" style={{ background: "radial-gradient(120% 70% at 0% 45%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0) 68%)" }} />
+            <svg className="pointer-events-none absolute top-0 left-0 w-full h-16 md:hidden" viewBox="0 0 400 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H400V22C330 52 250 10 170 30S50 58 0 40Z" fill="rgba(255,255,255,0.75)" /></svg>
+            <svg className="pointer-events-none absolute bottom-[-1px] left-0 w-full h-24 md:hidden" viewBox="0 0 400 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40C70 80 150 90 230 62S350 20 400 34V96H0Z" fill="rgba(255,255,255,0.55)" /><path d="M0 62C80 92 170 96 250 74S360 48 400 58V96H0Z" fill="#ffffff" /></svg>
             <div className="pointer-events-none absolute inset-y-0 left-0 hidden md:block md:w-3/5 bg-gradient-to-r from-[#eef4f6]/80 via-[#eef4f6]/35 to-transparent" />
           </div>
 
-          <div className="relative mx-auto max-w-7xl px-5 pt-7 pb-10 sm:px-6 sm:pt-10 md:py-24">
+          <div className="relative mx-auto max-w-7xl px-5 pt-12 pb-28 sm:px-6 sm:pt-14 md:py-24">
             <div className="max-w-xl lg:max-w-2xl">
               {/* Badge */}
               <Reveal delay={0.05} blur>
-                <span className="hidden md:inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-[#0d5249] shadow-sm ring-1 ring-teal-100 md:bg-transparent md:p-0 md:shadow-none md:ring-0">
+                <span className="inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-[#0d5249]">
                   MODERN DENTAL CARE
                 </span>
               </Reveal>
 
               {/* Headline */}
               <Reveal delay={0.15} blur>
-                <h1 className="md:mt-4 text-[2rem] leading-[1.1] min-[390px]:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#0e322d] sm:leading-[1.12]">
-                  Healthy Smiles <br />
-                  for a Better Life
+                <h1 className="mt-3 md:mt-4 max-w-[13rem] min-[390px]:max-w-[15rem] sm:max-w-none text-[2rem] leading-[1.1] min-[390px]:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#0e322d] sm:leading-[1.12]">
+                  Healthy Smiles <span className="font-semibold text-[#0e322d]/80">for a</span>{" "}
+                  <span className="relative inline-block text-[#0d5249]">Better Life<svg className="absolute -bottom-1.5 left-0 w-full h-2" viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path d="M2 6C30 1 70 1 98 5" stroke="#0d5249" strokeWidth="2" fill="none" strokeLinecap="round" /></svg></span>
                 </h1>
               </Reveal>
 
               {/* Paragraph */}
               <Reveal delay={0.25} blur>
-                <p className="mt-4 sm:mt-5 text-[15px] sm:text-base md:text-lg text-slate-600 leading-relaxed max-w-[22rem] sm:max-w-lg">
+                <p className="mt-4 sm:mt-5 text-[15px] sm:text-base md:text-lg text-slate-600 leading-relaxed max-w-[14rem] min-[390px]:max-w-[16rem] sm:max-w-lg">
                   Comprehensive, compassionate and advanced dental care for you and your family.
                 </p>
               </Reveal>
 
               {/* Action Buttons */}
               <Reveal delay={0.35} blur>
-                <div className="mt-7 sm:mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                <div className="mt-7 sm:mt-8 flex flex-row flex-wrap items-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                   {/* Primary CTA */}
                   <button
                     onClick={() => openBooking()}
-                    className="flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#0d5249] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#0d5249]/25 hover:bg-[#083832] transition hover:-translate-y-0.5"
+                    className="flex min-h-[48px] w-auto items-center justify-center gap-2 rounded-full bg-[#0d5249] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#0d5249]/25 hover:bg-[#083832] transition hover:-translate-y-0.5"
                   >
                     <Calendar className="h-4 w-4" />
                     <span>Book Appointment</span>
@@ -661,9 +665,9 @@ export default function App() {
                   {/* Secondary Video Tour CTA */}
                   <button
                     onClick={() => setIsTourOpen(true)}
-                    className="flex min-h-[40px] w-full sm:w-auto items-center justify-center sm:justify-start gap-2.5 rounded-full bg-transparent px-0 text-sm font-semibold text-[#0d5249] sm:text-slate-800 hover:text-[#0d5249] hover:text-[#0d5249] transition"
+                    className="flex min-h-[40px] w-auto items-center justify-start gap-2 text-left leading-tight rounded-full bg-transparent px-0 text-sm font-semibold text-[#0d5249] sm:text-slate-800 hover:text-[#0d5249] hover:text-[#0d5249] transition"
                   >
-                    <span className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-slate-100 text-[#0d5249]">
+                    <span className="flex shrink-0 h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-slate-100 text-[#0d5249]">
                       <Play className="h-4 w-4 fill-[#0d5249] ml-0.5" />
                     </span>
                     <span>Watch Clinic Tour</span>
