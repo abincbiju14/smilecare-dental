@@ -11,3 +11,5 @@ src-backup-pre-mobile.zip
 tsconfig.tsbuildinfo
 # junk test images (live assets are .webp/.png)
 *.jpg
+.vercel
+.env*
