@@ -599,9 +599,9 @@ export default function App() {
         {/* ========================================================= */}
         {/* 2. HERO SECTION                                           */}
         {/* ========================================================= */}
-        <section ref={heroRef} id="home" className="relative overflow-hidden bg-[#eef4f6] md:min-h-[520px] lg:min-h-[580px] xl:min-h-[620px]">
+        <section ref={heroRef} id="home" className="relative overflow-hidden bg-white md:bg-[#eef4f6] md:min-h-[520px] lg:min-h-[580px] xl:min-h-[620px]">
           {/* Hero background image - Ultra-clarity master photo, no linear gradient */}
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="relative h-60 min-[390px]:h-72 sm:h-80 overflow-hidden md:absolute md:inset-0 md:h-auto">
             <motion.div className="absolute inset-0 will-change-transform" style={{ y: heroY, scale: heroScale }}>
               <picture>
                 <source srcSet={IMAGES.hero} type="image/webp" />
@@ -617,22 +617,21 @@ export default function App() {
             </motion.div>
             {/* Very soft left wash for text legibility only */}
             {/* Mobile: soft top-to-bottom wash so copy stays readable while the face (right) shows */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#eef4f6]/85 via-[#eef4f6]/55 to-[#eef4f6]/90 md:hidden" />
             <div className="pointer-events-none absolute inset-y-0 left-0 hidden md:block md:w-3/5 bg-gradient-to-r from-[#eef4f6]/80 via-[#eef4f6]/35 to-transparent" />
           </div>
 
-          <div className="relative mx-auto max-w-7xl px-5 pt-10 pb-8 sm:px-6 sm:pt-14 md:py-24">
+          <div className="relative mx-auto max-w-7xl px-5 pt-7 pb-10 sm:px-6 sm:pt-10 md:py-24">
             <div className="max-w-xl lg:max-w-2xl">
               {/* Badge */}
               <Reveal delay={0.05} blur>
-                <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-[#0d5249] shadow-sm ring-1 ring-teal-100 md:bg-transparent md:p-0 md:shadow-none md:ring-0">
+                <span className="hidden md:inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-[#0d5249] shadow-sm ring-1 ring-teal-100 md:bg-transparent md:p-0 md:shadow-none md:ring-0">
                   MODERN DENTAL CARE
                 </span>
               </Reveal>
 
               {/* Headline */}
               <Reveal delay={0.15} blur>
-                <h1 className="mt-4 text-[2rem] leading-[1.1] min-[390px]:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#0e322d] sm:leading-[1.12]">
+                <h1 className="md:mt-4 text-[2rem] leading-[1.1] min-[390px]:text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#0e322d] sm:leading-[1.12]">
                   Healthy Smiles <br />
                   for a Better Life
                 </h1>
@@ -661,9 +660,9 @@ export default function App() {
                   {/* Secondary Video Tour CTA */}
                   <button
                     onClick={() => setIsTourOpen(true)}
-                    className="flex min-h-[48px] w-full sm:w-auto items-center justify-center sm:justify-start gap-2.5 rounded-full bg-white/80 sm:bg-transparent px-5 sm:px-0 text-sm font-semibold text-slate-800 ring-1 ring-slate-200 sm:ring-0 hover:text-[#0d5249] transition"
+                    className="flex min-h-[40px] w-full sm:w-auto items-center justify-center sm:justify-start gap-2.5 rounded-full bg-transparent px-0 text-sm font-semibold text-[#0d5249] sm:text-slate-800 hover:text-[#0d5249] hover:text-[#0d5249] transition"
                   >
-                    <span className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-white shadow-md border border-slate-100 text-[#0d5249]">
+                    <span className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md border border-slate-100 text-[#0d5249]">
                       <Play className="h-4 w-4 fill-[#0d5249] ml-0.5" />
                     </span>
                     <span>Watch Clinic Tour</span>
@@ -673,7 +672,7 @@ export default function App() {
 
               {/* Feature Points Row */}
               <Reveal delay={0.45} blur>
-                <div className="mt-8 grid grid-cols-1 gap-2.5 min-[480px]:grid-cols-3 min-[480px]:gap-3 md:mt-14 md:flex md:flex-wrap md:items-center md:gap-8 md:pt-4">
+                <div className="hidden md:mt-14 md:flex gap-2.5 min-[480px]:gap-3 md:mt-14 md:flex md:flex-wrap md:items-center md:gap-8 md:pt-4">
                   {/* Item 1 */}
                   <div className="flex items-center gap-3 rounded-2xl bg-white/75 px-3.5 py-2.5 ring-1 ring-white/80 backdrop-blur-sm md:bg-transparent md:p-0 md:ring-0 md:backdrop-blur-none">
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-50/80 text-[#0d5249]">
@@ -711,7 +710,7 @@ export default function App() {
             </div>
 
             {/* Quick Appointment Floating Pill Card (Bottom Right) */}
-            <div className="mt-6 sm:mt-10 lg:absolute lg:bottom-12 lg:right-6 lg:mt-0">
+            <div className="hidden md:block md:mt-10 lg:absolute lg:bottom-12 lg:right-6 lg:mt-0">
               <Reveal delay={0.55} direction={isMobile ? 'up' : 'right'} scale>
                 <div
                   onClick={() => openBooking()}
